@@ -1,5 +1,8 @@
 package com.github.phoswald.sample.microprofile;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "EchoResponse")
 public class EchoResponse {
 
     private String ouput;

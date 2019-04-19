@@ -47,8 +47,8 @@ public class RestResource {
 
     @POST
     @Path("/echo")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_XML)
+    @Produces(MediaType.TEXT_XML)
     public Response postEcho(EchoRequest request) {
         EchoResponse response = new EchoResponse();
         response.setOuput("Received " + request.getInput());
