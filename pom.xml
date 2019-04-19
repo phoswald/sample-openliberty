@@ -17,20 +17,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- Plugins -->
-    <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
-    <version.maven-surefire-plugin>3.0.0-M1</version.maven-surefire-plugin>
-    <version.maven-failsafe-plugin>3.0.0-M1</version.maven-failsafe-plugin>
-    <!-- OpenLiberty runtime -->
     <version.openliberty>19.0.0.3</version.openliberty>
-    <http.port>9080</http.port>
-    <https.port>9443</https.port>
-    <packaging.type>usr</packaging.type>
-    <app.name>${project.artifactId}</app.name>
-    <package.file>${project.build.directory}/${app.name}.zip</package.file>
   </properties>
 
   <dependencyManagement>
@@ -79,6 +68,7 @@
     </dependency>
     
     <!-- For tests -->
+    <!-- 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -103,6 +93,7 @@
       <version>1.0.4</version>
       <scope>test</scope>
     </dependency>
+     -->
     
     <!-- Support for JDK 9 and above -->
     <!-- 
@@ -135,7 +126,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>${version.maven-war-plugin}</version>
+        <version>3.2.2</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <packagingExcludes>pom.xml</packagingExcludes>
@@ -156,20 +147,21 @@
           <stripVersion>true</stripVersion>
           <configFile>src/main/liberty/config/server.xml</configFile>
           <looseApplication>true</looseApplication>
-          <packageFile>${package.file}</packageFile>
-          <include>${packaging.type}</include>
+          <packageFile>${project.build.directory}/${project.artifactId}.zip</packageFile>
+          <include>usr</include>
           <bootstrapProperties>
-            <default.http.port>${http.port}</default.http.port>
-            <default.https.port>${https.port}</default.https.port>
-            <app.context.root>${app.name}</app.context.root>
+            <default.http.port>9080</default.http.port>
+            <default.https.port>9443</default.https.port>
+            <app.context.root>${project.artifactId}</app.context.root>
           </bootstrapProperties>
         </configuration>
       </plugin>
       <!-- Plugin to run unit tests -->
+      <!-- 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${version.maven-surefire-plugin}</version>
+        <version>3.0.0-M1</version>
         <executions>
           <execution>
             <phase>test</phase>
@@ -186,11 +178,13 @@
           <skipTests>${skipTests}</skipTests>
         </configuration>
       </plugin>
+       -->
       <!-- Plugin to run functional tests -->
+      <!-- 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${version.maven-failsafe-plugin}</version>
+        <version>3.0.0-M1</version>
         <executions>
           <execution>
             <phase>integration-test</phase>
@@ -203,8 +197,8 @@
                 <include>**/it/**</include>
               </includes>
               <systemPropertyVariables>
-                <liberty.test.port>${http.port}</liberty.test.port>
-                <war.name>${app.name}</war.name>
+                <liberty.test.port>9080</liberty.test.port>
+                <war.name>${project.artifactId}</war.name>
               </systemPropertyVariables>
             </configuration>
           </execution>
@@ -220,28 +214,11 @@
           <reportsDirectory>${project.build.directory}/test-reports/it</reportsDirectory>
         </configuration>
       </plugin>
+       -->
     </plugins>
   </build>
 
   <profiles>
-    <!-- <profile>
-      <id>runnable-package</id>
-      <properties>
-        <package.file>
-          ${project.build.directory}/${app.name}.jar
-        </package.file>
-        <packaging.type>runnable</packaging.type>
-      </properties>
-    </profile> -->
-    <!-- <profile>
-      <id>minify-runnable-package</id>
-      <properties>
-        <package.file>
-          ${project.build.directory}/${app.name}.jar
-        </package.file>
-        <packaging.type>minify,runnable</packaging.type>
-      </properties>
-    </profile> -->
     <profile>
       <id>docker</id>
       <build>
