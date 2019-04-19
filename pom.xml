@@ -22,7 +22,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- Plugins -->
     <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
-    <version.dockerfile-maven-plugin>1.4.10</version.dockerfile-maven-plugin>
     <version.maven-surefire-plugin>3.0.0-M1</version.maven-surefire-plugin>
     <version.maven-failsafe-plugin>3.0.0-M1</version.maven-failsafe-plugin>
     <!-- OpenLiberty runtime -->
@@ -248,20 +247,39 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>dockerfile-maven-plugin</artifactId>
-            <version>${version.dockerfile-maven-plugin}</version>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.29.0</version>
             <executions>
               <execution>
-                <id>build-docker-image</id>
+                <id>docker-build</id>
+                <phase>package</phase>
                 <goals>
                   <goal>build</goal>
                 </goals>
               </execution>
             </executions>
             <configuration>
-              <repository>${project.artifactId}</repository>
-              <tag>${project.version}</tag>
+              <verbose>true</verbose>
+              <images>
+                <image>
+                  <name>${project.artifactId}:${project.version}</name>
+                  <build>
+                    <contextDir>${project.basedir}/src/main/docker</contextDir>
+                    <assembly>
+                      <inline>
+                        <fileSets>
+                          <fileSet>
+                            <include>${project.artifactId}.zip</include>
+                            <directory>target</directory>
+                            <outputDirectory>.</outputDirectory>
+                          </fileSet>
+                        </fileSets>
+                      </inline>
+                    </assembly>
+                  </build>
+                </image>
+              </images>
             </configuration>
           </plugin>
         </plugins>

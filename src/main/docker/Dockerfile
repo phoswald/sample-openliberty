@@ -1,5 +1,5 @@
 FROM open-liberty as server-setup
-COPY /target/sample-microprofile.zip /config/
+COPY maven/sample-microprofile.zip /config/
 USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends unzip \
