@@ -9,8 +9,9 @@
 
 ## Build and Run (using Docker)
 
-    $ mvn clean verify package -P docker 
+    $ mvn clean package -P docker 
     $ docker run -d --name sample-server \
       -p 9080:9080 \
       -p 9443:9443 \
+      -e SampleConfigSettingB=ValueFromDocker \
       sample-microprofile:0.1.0-SNAPSHOT

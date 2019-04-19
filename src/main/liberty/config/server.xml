@@ -12,8 +12,7 @@
 
   <applicationManager autoExpand="true" />
 
-  <quickStartSecurity userName="admin"
-    userPassword="adminpwd" />
+  <quickStartSecurity userName="admin" userPassword="adminpwd" />
 
   <keyStore id="defaultKeyStore" password="mpKeystore" />
 
@@ -27,7 +26,7 @@
     httpPort="${default.http.port}" 
     httpsPort="${default.https.port}" />
 
-  <variable name="io_openliberty_guides_system_inMaintenance" value="false" />
+  <variable name="SampleConfigSettingA" value="ValueFromServerXml" />
 
   <webApplication location="sample-microprofile.war" contextRoot="/" />
 
