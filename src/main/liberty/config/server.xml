@@ -4,6 +4,8 @@
     <feature>jaxrs-2.1</feature>
     <feature>jsonp-1.1</feature>
     <feature>cdi-2.0</feature>
+    <feature>ejbLite-3.2</feature>
+    <feature>jpa-2.2</feature>
     <feature>mpMetrics-1.1</feature>
     <feature>mpHealth-1.0</feature>
     <feature>mpConfig-1.3</feature>
@@ -29,5 +31,14 @@
   <variable name="SampleConfigSettingA" value="ValueFromServerXml" />
 
   <webApplication location="sample-microprofile.war" contextRoot="/" />
+  
+  <library id="derbyJdbcLib">
+    <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
+  </library>
+  
+  <dataSource id="sampleDS" jndiName="jdbc/sampleDS">
+    <jdbcDriver libraryRef="derbyJdbcLib" />
+    <properties.derby.embedded databaseName="SampleDB" createDatabase="create"/>
+  </dataSource>
 
 </server>
