@@ -16,7 +16,9 @@
 
   <quickStartSecurity userName="admin" userPassword="adminpwd" />
 
+  <!-- 
   <keyStore id="defaultKeyStore" password="mpKeystore" />
+  -->
 
   <!-- 
   <logging traceSpecification="com.ibm.ws.microprofile.health.*=all" /> 
