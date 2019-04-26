@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tasks Overview</title>
+  </head>
+  <body>
+    <p><a href="../..">[Home]</a> <a href="tasks">[Reload]</a></p>
+    <h1>Tasks Overview</h1>
+    <form action="tasks" method="post">
+      <table>
+        <tr>
+          <th>Done</th>
+          <th>Title</th>
+          <th>Updated</th>
+          <th></th>
+        </tr>
+        <tr th:each="task : ${tasks}">
+          <td>
+            <input type="checkbox" name="done" th:checked="${task.done}" disabled="disabled">
+          </td>
+          <td>      
+            <span th:text="${task.title}">Title</span>
+          </td>
+          <td>
+            <span th:text="${task.timestamp}">Timestamp</span>
+          </td>
+          <td>
+            <a th:href="'tasks/' + ${task.taskId}">[Details]</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" name="title" value="New task..."></td>
+          <td></td>
+          <td><input type="submit" value="Add"></td>
+        </tr>      
+      </table>
+    </form>
+  </body>
+</html>

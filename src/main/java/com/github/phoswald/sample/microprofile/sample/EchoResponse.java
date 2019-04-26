@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.microprofile;
+package com.github.phoswald.sample.microprofile.sample;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

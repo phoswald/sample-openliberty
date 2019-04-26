@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Edit Task Details</title>
+  </head>
+  <body>
+    <p><a href="../tasks">[Tasks Overview]</a> <a href="?">[View]</a></p>
+    <h1>Task Details</h1>
+    <form action="?" method="post">
+      <table>
+        <tr>
+          <td>ID</td>
+          <td><span th:text="${task.taskId}">ID</span></td>
+        </tr>
+        <tr>
+          <td>Updated</td>
+          <td><span th:text="${task.timestamp}">Timestamp</span></td>
+        </tr>
+        <tr>
+          <td>Title</td>
+          <td><input type="text" name="title" th:value="${task.title}"></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td><input type="text" name="description" th:value="${task.description}"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="checkbox" name="done" th:checked="${task.done}"> Done</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit" name="action" value="store">Store</button></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit" name="action" value="delete">Delete</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

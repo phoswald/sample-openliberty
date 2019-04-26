@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample Page</title>
+  </head>
+  <body>
+    <p><a href="../..">[Home]</a></p>
+    <h1>Sample Page</h1>
+    <h2>Greeting:</h2>
+    <p><span th:text="${model.greeting}">Message</span></p>
+    <h2>Time</h2>
+    <p>The current time is <span th:text="${model.now}">Timestamp</span>.</p>
+    <h2>Environment Variables</h2>
+    <table>
+      <tr>
+        <th>Variable</th>
+        <th>Value</th>
+      </tr>
+      <tr th:each="e : ${model.env}">
+        <td><span th:text="${e.key}">KEY</span></td>
+        <td><span th:text="${e.value}">VALUE</span></td>
+      </tr>
+    </table>
+    <h2>System Properties</h2>
+    <table>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+      <tr th:each="e : ${model.props}">
+        <td><span th:text="${e.key}">key</span></td>
+        <td><span th:text="${e.value}">value</span></td>
+      </tr>
+    </table>
+  </body>
+</html>

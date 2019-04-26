@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.microprofile;
+package com.github.phoswald.sample.microprofile.sample;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @RequestScoped
-@Path("/")
-public class RestResource {
+@Path("/sample")
+public class SampleResource {
 
     @Inject
     @ConfigProperty(name = "SampleConfigSettingA")

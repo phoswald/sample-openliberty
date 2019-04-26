@@ -1,13 +1,10 @@
-package com.github.phoswald.sample.microprofile;
+package com.github.phoswald.sample.microprofile.task;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,30 +17,31 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Stateless
-@Path("/task")
+@Path("/tasks")
 public class TaskResource {
 
-    @PersistenceContext(name = "sampleUnit")
-    private EntityManager em;
+    @Inject
+    private TaskRepository repository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        TypedQuery<TaskEntity> query = em.createQuery("select t from TaskEntity t order by t.timestamp desc", TaskEntity.class);
-        query.setMaxResults(100);
-        List<TaskEntity> entities = query.getResultList();
+        List<TaskEntity> entities = repository.selectAllTasks();
         return Response.ok(entities).build();
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response add() {
+    public Response add(TaskEntity request) {
         TaskEntity entity = new TaskEntity();
-        entity.setEventId(UUID.randomUUID().toString());
+        entity.setNewTaskId();
         entity.setUserId("guest");
-        entity.setTimestamp(new Date());
-        entity.setText("New task...");
-        em.persist(entity);
+        entity.setTimestamp(Instant.now());
+        entity.setTitle(request.getTitle());
+        entity.setDescription(request.getDescription());
+        entity.setDone(request.isDone());
+        repository.createTask(entity);
         return Response.ok(entity).build();
     }
 
@@ -51,7 +49,7 @@ public class TaskResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
-        TaskEntity entity = em.find(TaskEntity.class, id);
+        TaskEntity entity = repository.selectTaskById(id);
         return Response.ok(entity).build();
     }
 
@@ -60,8 +58,10 @@ public class TaskResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response putById(@PathParam("id") String id, TaskEntity request) {
-        TaskEntity entity = em.find(TaskEntity.class, id);
-        entity.setText(request.getText());
+        TaskEntity entity = repository.selectTaskById(id);
+        entity.setTimestamp(Instant.now());
+        entity.setTitle(request.getTitle());
+        entity.setDescription(request.getDescription());
         entity.setDone(request.isDone());
         return Response.ok(entity).build();
     }
@@ -69,8 +69,8 @@ public class TaskResource {
     @DELETE
     @Path("/{id}")
     public Response deleteById(@PathParam("id") String id) {
-        TaskEntity entity = em.find(TaskEntity.class, id);
-        em.remove(entity);
+        TaskEntity entity = repository.selectTaskById(id);
+        repository.deleteTask(entity);
         return Response.noContent().build();
     }
 }

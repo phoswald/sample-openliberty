@@ -5,24 +5,28 @@
     <title>Task Details</title>
   </head>
   <body>
-    <p><a href="../tasks">[All Tasks]</a></p>
+    <p><a href="../tasks">[Tasks Overview]</a> <a href="?action=edit">[Edit]</a></p>
     <h1>Task Details</h1>
     <table>
       <tr>
         <td>ID</td>
-        <td><span th:text="${task.eventId}">ID</span></td>
+        <td><span th:text="${task.taskId}">ID</span></td>
       </tr>
       <tr>
-        <td>Created</td>
+        <td>Updated</td>
         <td><span th:text="${task.timestamp}">Timestamp</span></td>
       </tr>
       <tr>
-        <td>Text</td>
-        <td><span th:text="${task.text}">String</span></td>
+        <td>Title</td>
+        <td><span th:text="${task.title}">String</span></td>
       </tr>
       <tr>
-        <td>Done</td>
-        <td><span th:text="${task.done}">Flag</span></td>
+        <td>Description</td>
+        <td><span th:text="${task.description}">String</span></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="checkbox" name="done" th:checked="${task.done}" disabled="disabled"> Done</td>
       </tr>
     </table>
   </body>
