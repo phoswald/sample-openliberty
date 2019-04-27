@@ -37,7 +37,7 @@ public class TaskController {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
-    public Response addTaskPage( //
+    public Response postTasksPage( //
             @FormParam("title") String title, //
             @FormParam("description") String description) {
         TaskEntity entity = new TaskEntity();

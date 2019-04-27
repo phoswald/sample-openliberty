@@ -25,7 +25,7 @@ public class TaskResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
+    public Response getTasks() {
         List<TaskEntity> entities = repository.selectAllTasks();
         return Response.ok(entities).build();
     }
@@ -33,7 +33,7 @@ public class TaskResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response add(TaskEntity request) {
+    public Response postTasks(TaskEntity request) {
         TaskEntity entity = new TaskEntity();
         entity.setNewTaskId();
         entity.setUserId("guest");
@@ -48,7 +48,7 @@ public class TaskResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") String id) {
+    public Response getTask(@PathParam("id") String id) {
         TaskEntity entity = repository.selectTaskById(id);
         return Response.ok(entity).build();
     }
@@ -57,7 +57,7 @@ public class TaskResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response putById(@PathParam("id") String id, TaskEntity request) {
+    public Response putTask(@PathParam("id") String id, TaskEntity request) {
         TaskEntity entity = repository.selectTaskById(id);
         entity.setTimestamp(Instant.now());
         entity.setTitle(request.getTitle());
@@ -68,7 +68,7 @@ public class TaskResource {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteById(@PathParam("id") String id) {
+    public Response deleteTask(@PathParam("id") String id) {
         TaskEntity entity = repository.selectTaskById(id);
         repository.deleteTask(entity);
         return Response.noContent().build();

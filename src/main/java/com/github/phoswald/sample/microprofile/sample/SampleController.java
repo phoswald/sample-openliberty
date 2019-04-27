@@ -14,7 +14,7 @@ public class SampleController {
     @GET
     @Path("/sample")
     @Produces(MediaType.TEXT_HTML)
-    public Response getGreetingPage() {
+    public Response getSamplePage() {
         return Response.ok(new SampleView().render(new SampleViewModel())).build();
     }
 }
