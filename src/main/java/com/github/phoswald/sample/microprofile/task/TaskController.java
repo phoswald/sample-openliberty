@@ -87,6 +87,6 @@ public class TaskController {
             entity.setDone(Objects.equals(done, "on"));
             repository.updateChanges();
         }
-        return getTaskPage(id, "edit");
+        return getTaskPage(id, null);
     }
 }
