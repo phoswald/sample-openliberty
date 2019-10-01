@@ -74,6 +74,13 @@
       <version>3.0.11.RELEASE</version>
     </dependency>
     
+    <!-- Utilities -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>28.1-jre</version>
+    </dependency>
+    
     <!-- JDBCs drivers -->
     <dependency>
       <groupId>org.apache.derby</groupId>
