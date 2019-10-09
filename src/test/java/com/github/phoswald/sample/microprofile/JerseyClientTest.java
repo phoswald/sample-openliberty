@@ -45,7 +45,7 @@ class JerseyClientTest {
         // arrange
         InputStream stream = new ByteArrayInputStream("Hello, World!".getBytes(StandardCharsets.UTF_8));
         MultiPart multiPart = new MultiPart();
-        multiPart.bodyPart(new StreamDataBodyPart("file", stream, "attachment.txt", MediaType.TEXT_PLAIN_TYPE));
+        multiPart.bodyPart(new StreamDataBodyPart("myfile", stream, "attachment.txt", MediaType.TEXT_PLAIN_TYPE));
         Entity<?> requestEntity = Entity.entity(multiPart, MediaType.MULTIPART_FORM_DATA_TYPE);
 
         // act
@@ -57,7 +57,7 @@ class JerseyClientTest {
         assertEquals(response.getMediaType(), MediaType.TEXT_HTML_TYPE);
         assertThat(responseString, containsString("CT=multipart/form-data"));
         assertThat(responseString, containsString("Content-Type=[text/plain]"));
-        assertThat(responseString, containsString("attachment.txt"));
+        assertThat(responseString, containsString("Content-Disposition=[form-data; filename=&quot;attachment.txt&quot;; name=&quot;myfile&quot;]"));
         assertThat(responseString, containsString("SHA256=dffd6021bb2bd5b0af676290809ec3a53191dd81c7f70a4b28688a362182986f"));
     }
 }
