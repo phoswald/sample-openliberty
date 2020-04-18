@@ -1,8 +1,8 @@
-package com.github.phoswald.sample.microprofile.task;
+package com.github.phoswald.sample.openliberty.task;
 
 import java.util.List;
 
-import com.github.phoswald.sample.microprofile.AbstractView;
+import com.github.phoswald.sample.openliberty.AbstractView;
 
 public class TaskListView extends AbstractView<List<TaskViewModel>> {
 

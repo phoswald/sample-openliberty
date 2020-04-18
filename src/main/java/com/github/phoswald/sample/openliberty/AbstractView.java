@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.microprofile;
+package com.github.phoswald.sample.openliberty;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;

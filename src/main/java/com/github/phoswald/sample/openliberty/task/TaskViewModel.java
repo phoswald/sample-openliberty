@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.microprofile.task;
+package com.github.phoswald.sample.openliberty.task;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

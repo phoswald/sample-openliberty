@@ -1,6 +1,6 @@
-package com.github.phoswald.sample.microprofile.sample;
+package com.github.phoswald.sample.openliberty.sample;
 
-import com.github.phoswald.sample.microprofile.AbstractView;
+import com.github.phoswald.sample.openliberty.AbstractView;
 
 public class SampleView extends AbstractView<SampleViewModel> {
 

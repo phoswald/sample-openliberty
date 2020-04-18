@@ -30,9 +30,9 @@
     httpPort="${default.http.port}" 
     httpsPort="${default.https.port}" />
 
-  <variable name="SampleConfigSettingA" value="ValueFromServerXml" />
+  <variable name="app.sample.config" value="ValueFromServerXml" />
 
-  <webApplication location="sample-microprofile.war" contextRoot="/" />
+  <webApplication location="sample-openliberty.war" contextRoot="/" />
   
   <library id="derbyJdbcLib">
     <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>

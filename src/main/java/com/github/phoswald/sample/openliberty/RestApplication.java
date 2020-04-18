@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.microprofile;
+package com.github.phoswald.sample.openliberty;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

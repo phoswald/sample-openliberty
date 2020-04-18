@@ -1,25 +1,49 @@
-# sample-microprofile
+# sample-openliberty
 
-## Build and Run (using Maven)
+Experiments with OpenLiberty and Docker, featuring:
 
-    $ mvn clean verify
-    $ mvn liberty:run-server
-    $ mvn liberty:start-server
-    $ mvn liberty:stop-server
+- Static web content
+- Dynamic web content using Thymeleaf
+- REST endpoints using JAX-RS 
+- Derby database using JPA 
 
-## Build and Run (using Docker)
+## Run Standalone
 
-    $ mvn clean package -P docker 
-    $ docker run -d --name sample-server \
-      -p 9080:9080 \
-      -p 9443:9443 \
-      -e SampleConfigSettingB=ValueFromDocker \
-      sample-microprofile:0.1.0-SNAPSHOT
+~~~
+$ mvn clean verify
+$ mvn liberty:run-server
+$ mvn liberty:start-server
+$ mvn liberty:stop-server
+~~~
 
-## REST
+## Run with Docker
 
-    $ curl -X POST "http://localhost:9080/rest/echo" -H "accept: */*" -H "Content-Type: text/xml" -d \
-      "<?xml version='1.0' encoding='UTF-8'?>
-      <EchoRequest>
-        <input>string</input>
-      </EchoRequest>"
+~~~
+$ mvn clean package -P docker 
+$ docker run -it --name sample-openliberty --rm \
+  -p 8080:8080 \
+  -p 8443:8443 \
+  -e app.sample.config=ValueFromDocker \
+  sample-openliberty:0.1.0-SNAPSHOT
+~~~
+
+## URLs
+
+- http://localhost:8080/
+
+~~~
+$ curl 'http://localhost:8080/rest/sample/time'
+$ curl 'http://localhost:8080/rest/sample/config'
+$ curl 'http://localhost:8080/rest/sample/echo' -i -X POST \
+  -H 'content-type: text/xml' \
+  -d '<EchoRequest><input>This is CURL</input></EchoRequest>'
+$ curl 'http://localhost:8080/rest/tasks' -i
+$ curl 'http://localhost:8080/rest/tasks' -i -X POST \
+  -H 'content-type: application/json' \
+  -d '{"title":"Some task","description":"This is CURL","done":true}'
+$ curl 'http://localhost:8080/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -i
+$ curl 'http://localhost:8080/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -i -X PUT \
+  -H 'content-type: application/json' \
+  -d '{"title":"Some updated task","description":"This is still CURL","done":false}'
+$ curl 'http://localhost:8080/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -i -X DELETE
+~~~

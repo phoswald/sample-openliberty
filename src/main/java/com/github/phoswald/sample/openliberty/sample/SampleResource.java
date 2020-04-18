@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.microprofile.sample;
+package com.github.phoswald.sample.openliberty.sample;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,29 +20,22 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class SampleResource {
 
     @Inject
-    @ConfigProperty(name = "SampleConfigSettingA")
-    private String settingA;
-
-    @Inject
-    @ConfigProperty(name = "SampleConfigSettingB")
-    private String settingB;
+    @ConfigProperty(name = "app.sample.config")
+    private String sampleConfig;
 
     @GET
     @Path("/time")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getTime() {
         String now = ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
-        return Response.ok("The current time is " + now).build();
+        return Response.ok(now).build();
     }
 
     @GET
     @Path("/config")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getConfig() {
-        String config = "" + //
-                "SampleConfigSettingA = " + settingA + "\n" + //
-                "SampleConfigSettingB = " + settingB + "\n"; //
-        return Response.ok(config).build();
+        return Response.ok(sampleConfig).build();
     }
 
     @POST

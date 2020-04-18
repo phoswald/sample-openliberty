@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.microprofile.sample;
+package com.github.phoswald.sample.openliberty.sample;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

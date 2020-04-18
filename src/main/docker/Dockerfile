@@ -2,7 +2,7 @@ FROM open-liberty as server-setup
 USER root
 RUN apt-get update \
  && apt-get install -y --no-install-recommends unzip
-COPY maven/sample-microprofile.zip /tmp/app.zip 
+COPY maven/sample-openliberty.zip /tmp/app.zip 
 RUN unzip /tmp/app.zip -d /tmp/app
 
 ################################################################################
