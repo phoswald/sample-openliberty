@@ -4,12 +4,6 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>net.wasdev.wlp.maven.parent</groupId>
-    <artifactId>liberty-maven-app-parent</artifactId>
-    <version>2.6.4</version>
-  </parent>
-
   <groupId>com.github.phoswald</groupId>
   <artifactId>sample-openliberty</artifactId>
   <version>0.1.0-SNAPSHOT</version>
@@ -22,99 +16,25 @@
     <version.openliberty>19.0.0.3</version.openliberty>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>io.openliberty.features</groupId>
-        <artifactId>features-bom</artifactId>
-        <version>${version.openliberty}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
-    <!-- Open Liberty Features -->
     <dependency>
-      <groupId>io.openliberty.features</groupId>
-      <artifactId>jaxrs-2.1</artifactId>
-      <type>esa</type>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>io.openliberty.features</groupId>
-      <artifactId>jsonp-1.1</artifactId>
-      <type>esa</type>
+      <groupId>org.eclipse.microprofile.config</groupId>
+      <artifactId>microprofile-config-api</artifactId>
+      <version>1.0</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>io.openliberty.features</groupId>
-      <artifactId>cdi-2.0</artifactId>
-      <type>esa</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.openliberty.features</groupId>
-      <artifactId>mpMetrics-1.1</artifactId>
-      <type>esa</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.openliberty.features</groupId>
-      <artifactId>mpHealth-1.0</artifactId>
-      <type>esa</type>
-      <scope>provided</scope>
-    </dependency>
-    
-    <!-- Thymeleaf -->
-    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf</artifactId>
-      <version>3.0.11.RELEASE</version>
-    </dependency>
-    
-    <!-- JDBCs drivers -->
-    <dependency>
-      <groupId>org.apache.derby</groupId>
-      <artifactId>derby</artifactId>
-      <version>10.14.2.0</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <!-- For tests -->
-    <!-- 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-rs-client</artifactId>
-      <version>3.2.6</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-rs-extension-providers</artifactId>
-      <version>3.2.6</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-      <version>1.0.4</version>
-      <scope>test</scope>
-    </dependency>
-     -->
-    
     <!-- Support for JDK 9 and above -->
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>2.3.1</version>
+      <scope>provided</scope>
     </dependency>
     <!-- 
     <dependency>
@@ -133,11 +53,27 @@
       <version>1.1.1</version>
     </dependency>
      -->
+    
+    <!-- Thymeleaf -->
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf</artifactId>
+      <version>3.0.11.RELEASE</version>
+    </dependency>
+    
+    <!-- JDBCs drivers -->
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+      <version>10.14.2.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>${project.artifactId}</finalName>
     <plugins>
+    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -160,27 +96,29 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.2</version>
-        <configuration>
+        <version>3.2.3</version>
+        <!-- <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <packagingExcludes>pom.xml</packagingExcludes>
-        </configuration>
+        </configuration> -->
       </plugin>
-      <!-- Enable liberty-maven plugin -->
+
       <plugin>
-        <groupId>net.wasdev.wlp.maven.plugins</groupId>
+        <groupId>io.openliberty.tools</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
+        <version>3.1</version>
         <configuration>
-          <assemblyArtifact>
+          <!-- <assemblyArtifact>
             <groupId>io.openliberty</groupId>
             <artifactId>openliberty-runtime</artifactId>
             <version>${version.openliberty}</version>
             <type>zip</type>
-          </assemblyArtifact>
+          </assemblyArtifact> -->
           <serverName>defaultServer</serverName>
           <stripVersion>true</stripVersion>
-          <configFile>src/main/liberty/config/server.xml</configFile>
-          <looseApplication>true</looseApplication>
+          <!-- <configFile>src/main/liberty/config/server.xml</configFile> -->
+          <!-- <looseApplication>true</looseApplication> -->
+          <deployPackages>all</deployPackages>
           <packageFile>${project.build.directory}/${project.artifactId}.zip</packageFile>
           <include>usr</include>
           <bootstrapProperties>
@@ -189,66 +127,25 @@
             <app.context.root>${project.artifactId}</app.context.root>
           </bootstrapProperties>
         </configuration>
-      </plugin>
-      <!-- Plugin to run unit tests -->
-      <!-- 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M1</version>
         <executions>
           <execution>
-            <phase>test</phase>
-            <id>default-test</id>
-            <configuration>
-              <excludes>
-                <exclude>**/it/**</exclude>
-              </excludes>
-              <reportsDirectory>${project.build.directory}/test-reports/unit</reportsDirectory>
-            </configuration>
-          </execution>
-        </executions>
-        <configuration>
-          <skipTests>${skipTests}</skipTests>
-        </configuration>
-      </plugin>
-       -->
-      <!-- Plugin to run functional tests -->
-      <!-- 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M1</version>
-        <executions>
-          <execution>
-            <phase>integration-test</phase>
-            <id>integration-test</id>
+            <id>create-server</id>
+            <phase>prepare-package</phase>
             <goals>
-              <goal>integration-test</goal>
+              <goal>create</goal>
             </goals>
-            <configuration>
-              <includes>
-                <include>**/it/**</include>
-              </includes>
-              <systemPropertyVariables>
-                <liberty.test.port>9080</liberty.test.port>
-                <war.name>${project.artifactId}</war.name>
-              </systemPropertyVariables>
-            </configuration>
           </execution>
           <execution>
-            <id>verify-results</id>
+            <id>package-server</id>
+            <phase>package</phase>
             <goals>
-              <goal>verify</goal>
+              <goal>deploy</goal>
+              <goal>package</goal>
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <summaryFile>${project.build.directory}/test-reports/it/failsafe-summary.xml</summaryFile>
-          <reportsDirectory>${project.build.directory}/test-reports/it</reportsDirectory>
-        </configuration>
       </plugin>
-       -->
+      
     </plugins>
   </build>
 

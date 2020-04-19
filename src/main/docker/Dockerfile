@@ -8,6 +8,6 @@ RUN unzip /tmp/app.zip -d /tmp/app
 ################################################################################
 
 FROM open-liberty
-RUN rm -rf /liberty/usr
+#RUN rm -rf /liberty/usr
 COPY --chown=1001:0 --from=server-setup /tmp/app/wlp/usr /liberty/usr
 EXPOSE 9080 9443

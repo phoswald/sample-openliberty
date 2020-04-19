@@ -3,7 +3,7 @@
 Experiments with OpenLiberty and Docker, featuring:
 
 - Static web content
-- Dynamic web content using Thymeleaf
+- Dynamic web content using JAX-RS and Thymeleaf
 - REST endpoints using JAX-RS 
 - Derby database using JPA 
 
@@ -11,9 +11,9 @@ Experiments with OpenLiberty and Docker, featuring:
 
 ~~~
 $ mvn clean verify
-$ mvn liberty:run-server
-$ mvn liberty:start-server
-$ mvn liberty:stop-server
+$ mvn liberty:run
+$ mvn liberty:start
+$ mvn liberty:stop
 ~~~
 
 ## Run with Docker
@@ -47,3 +47,11 @@ $ curl 'http://localhost:8080/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -
   -d '{"title":"Some updated task","description":"This is still CURL","done":false}'
 $ curl 'http://localhost:8080/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -i -X DELETE
 ~~~
+
+## TODO
+
+- Es ist unklar, ob /liberty/usr aus dem Basisimage übernommen werden soll.
+  Wenn es gelöscht wird (wie früher), startet der Server weil kein Keystore im Dropin gefunden wird.
+  Dies, auch wenn im server.xml ein defaultKeyStore definiert wird.
+
+- fabric8 Plugin aktualisieren
