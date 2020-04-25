@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 @Dependent
 public class TaskRepository {
 
-    @PersistenceContext(name = "sampleUnit")
+    @PersistenceContext(name = "taskDS")
     private EntityManager em;
 
     public List<TaskEntity> selectAllTasks() {

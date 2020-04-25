@@ -34,13 +34,13 @@
 
   <webApplication location="sample-openliberty.war" contextRoot="/" />
   
-  <library id="derbyJdbcLib">
-    <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
+  <library id="h2JdbcLib">
+    <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
   </library>
   
-  <dataSource id="sampleDS" jndiName="jdbc/sampleDS">
-    <jdbcDriver libraryRef="derbyJdbcLib" />
-    <properties.derby.embedded databaseName="SampleDB" createDatabase="create"/>
+  <dataSource id="taskDS" jndiName="jdbc/taskDS">
+    <jdbcDriver libraryRef="h2JdbcLib" />
+    <properties URL="${app.taskds.url}" user="sa" password="sa"/>
   </dataSource>
 
 </server>

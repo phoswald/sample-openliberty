@@ -13,7 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <version.openliberty>19.0.0.3</version.openliberty>
+    <!-- <version.openliberty>20.0.0.4</version.openliberty> -->
   </properties>
 
   <dependencies>
@@ -29,44 +29,24 @@
       <version>1.0</version>
       <scope>provided</scope>
     </dependency>
-    <!-- Support for JDK 9 and above -->
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>2.3.1</version>
       <scope>provided</scope>
     </dependency>
-    <!-- 
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-core</artifactId>
-      <version>2.3.0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
-      <version>2.3.2</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.activation</groupId>
-      <artifactId>activation</artifactId>
-      <version>1.1.1</version>
-    </dependency>
-     -->
     
-    <!-- Thymeleaf -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope> <!-- neither provided (not to be included in compile class path) nor runtime (not to be included in WAR) -->
+      <version>1.4.200</version>
+    </dependency>
+    
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf</artifactId>
       <version>3.0.11.RELEASE</version>
-    </dependency>
-    
-    <!-- JDBCs drivers -->
-    <dependency>
-      <groupId>org.apache.derby</groupId>
-      <artifactId>derby</artifactId>
-      <version>10.14.2.0</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -80,13 +60,13 @@
         <version>2.10</version>
         <executions>
           <execution>
-            <id>copy-derby-dependency</id>
+            <id>copy-h2-dependency</id>
             <phase>package</phase>
             <goals>
               <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>derby</includeArtifactIds>
+              <includeArtifactIds>h2</includeArtifactIds>
               <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
             </configuration>
           </execution>
@@ -124,7 +104,7 @@
           <bootstrapProperties>
             <default.http.port>8080</default.http.port>
             <default.https.port>8443</default.https.port>
-            <app.context.root>${project.artifactId}</app.context.root>
+            <app.taskds.url>jdbc:h2:${project.basedir}/databases/task-db</app.taskds.url>
           </bootstrapProperties>
         </configuration>
         <executions>
