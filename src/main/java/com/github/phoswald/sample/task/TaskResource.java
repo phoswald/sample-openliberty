@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.openliberty.task;
+package com.github.phoswald.sample.task;
 
 import java.time.Instant;
 import java.util.List;

@@ -40,7 +40,7 @@
   
   <dataSource id="taskDS" jndiName="jdbc/taskDS">
     <jdbcDriver libraryRef="h2JdbcLib" />
-    <properties URL="${app.taskds.url}" user="sa" password="sa"/>
+    <properties URL="${APP_TASKDS_URL}" user="sa" password="sa"/>
   </dataSource>
 
 </server>

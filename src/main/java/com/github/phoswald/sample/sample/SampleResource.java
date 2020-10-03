@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.openliberty.sample;
+package com.github.phoswald.sample.sample;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,10 +39,20 @@ public class SampleResource {
     }
 
     @POST
-    @Path("/echo")
+    @Path("/echo-xml")
     @Consumes(MediaType.TEXT_XML)
     @Produces(MediaType.TEXT_XML)
-    public Response postEcho(EchoRequest request) {
+    public Response postEchoXml(EchoRequest request) {
+        EchoResponse response = new EchoResponse();
+        response.setOuput("Received " + request.getInput());
+        return Response.ok(response).build();
+    }
+
+    @POST
+    @Path("/echo-json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postEchoJson(EchoRequest request) {
         EchoResponse response = new EchoResponse();
         response.setOuput("Received " + request.getInput());
         return Response.ok(response).build();

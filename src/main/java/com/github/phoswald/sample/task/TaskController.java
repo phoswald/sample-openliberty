@@ -1,4 +1,4 @@
-package com.github.phoswald.sample.openliberty.task;
+package com.github.phoswald.sample.task;
 
 import java.net.URI;
 import java.net.URISyntaxException;

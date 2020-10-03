@@ -1,6 +1,6 @@
-package com.github.phoswald.sample.openliberty.sample;
+package com.github.phoswald.sample.sample;
 
-import com.github.phoswald.sample.openliberty.AbstractView;
+import com.github.phoswald.sample.AbstractView;
 
 public class SampleView extends AbstractView<SampleViewModel> {
 
