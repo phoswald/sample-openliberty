@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @RequestScoped
-@Path("/sample")
+@Path("/rest/sample")
 public class SampleResource {
 
     @Inject

@@ -6,8 +6,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -19,7 +20,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Stateless
+@RequestScoped
+@Transactional
 @Path("/pages/tasks")
 public class TaskController {
 

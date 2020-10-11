@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <server description="SampleServer">
 
   <featureManager>
+    <feature>cdi-2.0</feature>
     <feature>jaxrs-2.1</feature>
     <feature>jsonp-1.1</feature>
-    <feature>cdi-2.0</feature>
-    <feature>ejbLite-3.2</feature>
     <feature>jpa-2.2</feature>
     <feature>mpMetrics-1.1</feature>
     <feature>mpHealth-1.0</feature>
@@ -12,35 +12,27 @@
     <feature>mpOpenAPI-1.1</feature>
   </featureManager>
 
-  <applicationManager autoExpand="true" />
-
-  <quickStartSecurity userName="admin" userPassword="adminpwd" />
-
-  <!-- 
-  <keyStore id="defaultKeyStore" password="mpKeystore" />
-  -->
-
-  <!-- 
-  <logging traceSpecification="com.ibm.ws.microprofile.health.*=all" /> 
-  <logging traceSpecification="com.ibm.ws.microprofile.openapi.*=all">
-  -->
+  <variable name="default.http.port"  defaultValue="8080"/>
+  <variable name="default.https.port" defaultValue="8443"/>
+  <variable name="app.jdbc.url"       defaultValue="jdbc:h2:mem:test" />
+  <variable name="app.jdbc.username"  defaultValue="sa" />
+  <variable name="app.jdbc.password"  defaultValue="sa" />
+  <variable name="app.sample.config"  defaultValue="ValueFromServerXml" />
 
   <httpEndpoint id="defaultHttpEndpoint" 
     host="*"
     httpPort="${default.http.port}" 
     httpsPort="${default.https.port}" />
 
-  <variable name="app.sample.config" value="ValueFromServerXml" />
-
   <webApplication location="sample-openliberty.war" contextRoot="/" />
   
   <library id="h2JdbcLib">
     <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
   </library>
-  
+
   <dataSource id="taskDS" jndiName="jdbc/taskDS">
     <jdbcDriver libraryRef="h2JdbcLib" />
-    <properties URL="${APP_TASKDS_URL}" user="sa" password="sa"/>
+    <properties URL="${app.jdbc.url}" user="${app.jdbc.username}" password="${app.jdbc.username}"/>
   </dataSource>
 
 </server>

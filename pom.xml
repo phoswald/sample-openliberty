@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -13,20 +13,22 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- <version.openliberty>20.0.0.4</version.openliberty> -->
+    <liberty.runtime.version>20.0.0.10</liberty.runtime.version>
   </properties>
 
   <dependencies>
+     <!-- Java EE and MicroProfile -->
     <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>7.0</version>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>8.0.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.microprofile.config</groupId>
-      <artifactId>microprofile-config-api</artifactId>
-      <version>1.0</version>
+      <groupId>org.eclipse.microprofile</groupId>
+      <artifactId>microprofile</artifactId>
+      <version>3.3</version>
+      <type>pom</type>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -35,14 +37,8 @@
       <version>2.3.1</version>
       <scope>provided</scope>
     </dependency>
-    
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>test</scope> <!-- neither provided (not to be included in compile class path) nor runtime (not to be included in WAR) -->
-      <version>1.4.200</version>
-    </dependency>
-    
+
+    <!-- Templating -->
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf</artifactId>
@@ -53,79 +49,45 @@
   <build>
     <finalName>${project.artifactId}</finalName>
     <plugins>
-    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.3</version>
+      </plugin>
+      <plugin>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <version>3.2.3</version>
+        <configuration>
+          <bootstrapProperties>
+            <app.jdbc.url>jdbc:h2:${project.basedir}/databases/task-db</app.jdbc.url>
+          </bootstrapProperties>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.10</version>
+        <version>3.1.2</version>
         <executions>
           <execution>
-            <id>copy-h2-dependency</id>
+            <id>copy-shared-resources</id>
             <phase>package</phase>
             <goals>
-              <goal>copy-dependencies</goal>
+              <goal>copy</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>h2</includeArtifactIds>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>com.h2database</groupId>
+                  <artifactId>h2</artifactId>
+                  <version>1.4.200</version>
+                </artifactItem>
+              </artifactItems>
               <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
             </configuration>
           </execution>
         </executions>
       </plugin>
-    
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
-        <!-- <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <packagingExcludes>pom.xml</packagingExcludes>
-        </configuration> -->
-      </plugin>
-
-      <plugin>
-        <groupId>io.openliberty.tools</groupId>
-        <artifactId>liberty-maven-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <!-- <assemblyArtifact>
-            <groupId>io.openliberty</groupId>
-            <artifactId>openliberty-runtime</artifactId>
-            <version>${version.openliberty}</version>
-            <type>zip</type>
-          </assemblyArtifact> -->
-          <serverName>defaultServer</serverName>
-          <stripVersion>true</stripVersion>
-          <!-- <configFile>src/main/liberty/config/server.xml</configFile> -->
-          <!-- <looseApplication>true</looseApplication> -->
-          <deployPackages>all</deployPackages>
-          <packageFile>${project.build.directory}/${project.artifactId}.zip</packageFile>
-          <include>usr</include>
-          <bootstrapProperties>
-            <default.http.port>8080</default.http.port>
-            <default.https.port>8443</default.https.port>
-            <APP_TASKDS_URL>jdbc:h2:${project.basedir}/databases/task-db</APP_TASKDS_URL>
-          </bootstrapProperties>
-        </configuration>
-        <executions>
-          <execution>
-            <id>create-server</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>create</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>package-server</id>
-            <phase>package</phase>
-            <goals>
-              <goal>deploy</goal>
-              <goal>package</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      
     </plugins>
   </build>
 
@@ -158,9 +120,17 @@
                       <inline>
                         <fileSets>
                           <fileSet>
-                            <include>${project.artifactId}.zip</include>
+                            <directory>src/main/liberty/config</directory>
+                            <outputDirectory>config</outputDirectory>
+                          </fileSet>
+                          <fileSet>
+                            <include>${project.artifactId}.war</include>
                             <directory>target</directory>
                             <outputDirectory>.</outputDirectory>
+                          </fileSet>
+                          <fileSet>
+                            <directory>${project.build.directory}/liberty/wlp/usr/shared</directory>
+                            <outputDirectory>shared</outputDirectory>
                           </fileSet>
                         </fileSets>
                       </inline>
