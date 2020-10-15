@@ -33,6 +33,7 @@ $ docker run -it --name sample-openliberty --rm \
 ## URLs
 
 - http://localhost:8080/
+- https://localhost:8443/
 
 ~~~
 $ curl 'http://localhost:8080/app/rest/sample/time' -i
@@ -52,4 +53,22 @@ $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf2
   -H 'content-type: application/json' \
   -d '{"title":"Some updated task","description":"This is still CURL","done":false}'
 $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -i -X DELETE
+~~~
+
+## Google Login
+
+- TODO: HTTP does not work (redirect)
+- TODO: KeyStore manually created in target
+- TODO: Docker
+
+~~~
+$ export APP_OIDC_CLIENTID=...
+$ export APP_OIDC_CLIENTSECRET=...
+
+$ keytool -importcert \
+  -file src/main/resources/google.pem \
+  -alias google \
+  -keystore target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12 \
+  -storepass keyspass \
+  -storetype PKCS12
 ~~~

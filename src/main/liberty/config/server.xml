@@ -10,6 +10,12 @@
     <feature>mpHealth-1.0</feature>
     <feature>mpConfig-1.3</feature>
     <feature>mpOpenAPI-1.1</feature>
+    
+    <feature>localConnector-1.0</feature>
+    <feature>appSecurity-2.0</feature>
+    <feature>socialLogin-1.0</feature>
+    <feature>jwt-1.0</feature>
+    <feature>mpJwt-1.1</feature>
   </featureManager>
 
   <variable name="default.http.port"  defaultValue="8080"/>
@@ -24,7 +30,19 @@
     httpPort="${default.http.port}" 
     httpsPort="${default.https.port}" />
 
-  <webApplication location="sample-openliberty.war" contextRoot="/" />
+  <keyStore id="defaultKeyStore" password="keyspass"/>
+
+  <googleLogin 
+    clientId="${app.oidc.clientId}"
+    clientSecret="${app.oidc.clientSecret}"/>
+
+  <webApplication location="sample-openliberty.war" contextRoot="/" >
+    <application-bnd>
+      <security-role name="users">
+        <special-subject type="ALL_AUTHENTICATED_USERS"/>
+      </security-role>
+    </application-bnd>
+  </webApplication>
   
   <library id="h2JdbcLib">
     <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
