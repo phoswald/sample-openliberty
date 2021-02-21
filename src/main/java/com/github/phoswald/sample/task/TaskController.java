@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.mvc.Controller;
+import javax.mvc.Models;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -22,18 +24,23 @@ import javax.ws.rs.core.Response;
 
 @RequestScoped
 @Transactional
+@Controller
 @Path("/pages/tasks")
 public class TaskController {
 
     @Inject
     private TaskRepository repository;
+    
+    @Inject
+    private Models models;
 
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Response getTasksPage() {
         List<TaskEntity> entities = repository.selectAllTasks();
         List<TaskViewModel> viewModel = TaskViewModel.newList(entities);
-        return Response.ok(new TaskListView().render(viewModel)).build();
+        models.put("tasks", viewModel);
+        return Response.ok("task-list.html").build();
     }
 
     @POST
@@ -62,9 +69,11 @@ public class TaskController {
         TaskEntity entity = repository.selectTaskById(id);
         TaskViewModel viewModel = new TaskViewModel(entity);
         if (Objects.equals(action, "edit")) {
-            return Response.ok(new TaskEditView().render(viewModel)).build();
+            models.put("task", viewModel);
+            return Response.ok("task-edit.html").build();
         } else {
-            return Response.ok(new TaskView().render(viewModel)).build();
+            models.put("task", viewModel);
+            return Response.ok("task.html").build();
         }
     }
 

@@ -3,7 +3,7 @@
 Experiments with OpenLiberty and Docker, featuring:
 
 - Static web content
-- Dynamic web content using JAX-RS and Thymeleaf
+- Dynamic web content using Jakarta MVC (Eclipse Krazo and Thymeleaf)
 - REST endpoints using JAX-RS 
 - H2 database using JPA and EclipseLink
 

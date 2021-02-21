@@ -37,12 +37,30 @@
       <version>2.3.1</version>
       <scope>provided</scope>
     </dependency>
-
-    <!-- Templating -->
     <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf</artifactId>
-      <version>3.0.11.RELEASE</version>
+      <groupId>jakarta.mvc</groupId>
+      <artifactId>jakarta.mvc-api</artifactId>
+      <version>1.1.0</version>
+    </dependency>
+
+    <!-- MVC implementation -->
+    <dependency>
+      <groupId>org.eclipse.krazo</groupId>
+      <artifactId>krazo-core</artifactId>
+      <version>1.1.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.krazo.ext</groupId>
+      <artifactId>krazo-thymeleaf</artifactId>
+      <version>1.1.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.krazo</groupId>
+      <artifactId>krazo-cxf</artifactId>
+      <version>1.1.0</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 
