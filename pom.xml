@@ -11,9 +11,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <liberty.runtime.version>20.0.0.10</liberty.runtime.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <liberty.runtime.version>22.0.0.12</liberty.runtime.version>
   </properties>
 
   <dependencies>
@@ -27,7 +26,7 @@
     <dependency>
       <groupId>org.eclipse.microprofile</groupId>
       <artifactId>microprofile</artifactId>
-      <version>3.3</version>
+      <version>4.1</version>
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
@@ -42,7 +41,7 @@
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf</artifactId>
-      <version>3.0.11.RELEASE</version>
+      <version>3.1.1.RELEASE</version>
     </dependency>
   </dependencies>
 
@@ -50,14 +49,18 @@
     <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.3.2</version>
       </plugin>
       <plugin>
         <groupId>io.openliberty.tools</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.7.1</version>
         <configuration>
           <bootstrapProperties>
             <app.jdbc.url>jdbc:h2:${project.basedir}/databases/task-db</app.jdbc.url>
@@ -67,7 +70,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>3.4.0</version>
         <executions>
           <execution>
             <id>copy-shared-resources</id>
@@ -80,7 +83,7 @@
                 <artifactItem>
                   <groupId>com.h2database</groupId>
                   <artifactId>h2</artifactId>
-                  <version>1.4.200</version>
+                  <version>2.1.214</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
@@ -99,7 +102,7 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.34.1</version>
+            <version>0.40.2</version>
             <executions>
               <execution>
                 <id>docker-build</id>
