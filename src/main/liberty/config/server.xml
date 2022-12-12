@@ -10,6 +10,7 @@
     <feature>mpOpenAPI-3.0</feature>
     <feature>mpHealth-4.0</feature>
     <feature>mpMetrics-4.0</feature>
+    <feature>transportSecurity-1.0</feature>
   </featureManager>
 
   <variable name="default.http.port"  defaultValue="8080"/>
@@ -18,11 +19,14 @@
   <variable name="app.jdbc.username"  defaultValue="sa" />
   <variable name="app.jdbc.password"  defaultValue="sa" />
   <variable name="app.sample.config"  defaultValue="ValueFromServerXml" />
+  <variable name="app.cert.location"  defaultValue="${server.config.dir}/resources/security/key.p12" />
 
   <httpEndpoint id="defaultHttpEndpoint" 
     host="*"
     httpPort="${default.http.port}" 
     httpsPort="${default.https.port}" />
+
+  <keyStore id="defaultKeyStore" location="${app.cert.location}" password="mypassword"/>
 
   <webApplication location="sample-openliberty.war" contextRoot="/" />
   

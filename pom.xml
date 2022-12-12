@@ -99,6 +99,7 @@
         <configuration>
           <bootstrapProperties>
             <app.jdbc.url>jdbc:h2:${project.basedir}/databases/task-db</app.jdbc.url>
+            <!--<app.cert.location>${project.basedir}/certs/sample.p12</app.cert.location>-->
           </bootstrapProperties>
         </configuration>
       </plugin>
