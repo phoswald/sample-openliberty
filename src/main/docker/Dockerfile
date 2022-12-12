@@ -1,4 +1,4 @@
-FROM open-liberty:20.0.0.10-kernel-java8-openj9
+FROM open-liberty:${liberty.runtime.version}-full-java17-openj9
 
 COPY --chown=1001:0 maven/config                 /config/
 COPY --chown=1001:0 maven/sample-openliberty.war /config/apps/
