@@ -2,10 +2,10 @@ package com.github.phoswald.sample.task;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import jakarta.enterprise.context.Dependent;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 
 @Dependent
 public class TaskRepository {
