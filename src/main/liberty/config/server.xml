@@ -35,4 +35,6 @@
     <properties URL="${app.jdbc.url}" user="${app.jdbc.username}" password="${app.jdbc.username}"/>
   </dataSource>
 
+  <mpMetrics authentication="false"/>
+
 </server>
