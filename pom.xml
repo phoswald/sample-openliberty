@@ -12,7 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
-    <liberty.runtime.version>22.0.0.12</liberty.runtime.version>
+    <liberty.runtime.version>23.0.0.1</liberty.runtime.version>
   </properties>
   
   <dependencyManagement>
@@ -137,7 +137,7 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.40.2</version>
+            <version>0.41.0</version>
             <executions>
               <execution>
                 <id>docker-build</id>
@@ -182,4 +182,5 @@
       </build>
     </profile>
   </profiles>
+
 </project>

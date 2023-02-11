@@ -24,9 +24,9 @@ $ mvn clean verify -P docker
 $ docker run -it --name sample-openliberty --rm \
   -p 8080:8080 \
   -p 8443:8443 \
-  -e APP_JDBC_URL=jdbc:h2:/databases/task-db \
   -e APP_SAMPLE_CONFIG=ValueFromDockerRun \
-  -v "$(pwd)/../databases":/databases \
+  -e APP_JDBC_URL=jdbc:h2:/databases/task-db \
+  -v ./databases/:/databases \
   sample-openliberty:0.1.0-SNAPSHOT
 ~~~
 
