@@ -12,7 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
-    <liberty.runtime.version>23.0.0.1</liberty.runtime.version>
+    <liberty.runtime.version>23.0.0.4</liberty.runtime.version>
   </properties>
   
   <dependencyManagement>
@@ -20,14 +20,14 @@
       <dependency>
         <groupId>jakarta.platform</groupId>
         <artifactId>jakarta.jakartaee-bom</artifactId>
-        <version>9.0.0</version>
+        <version>10.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.eclipse.microprofile</groupId>
         <artifactId>microprofile</artifactId>
-        <version>5.0</version>
+        <version>6.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -85,7 +85,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>3.11.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -95,7 +95,7 @@
       <plugin>
         <groupId>io.openliberty.tools</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
-        <version>3.7.1</version>
+        <version>3.8</version>
         <configuration>
           <bootstrapProperties>
             <app.jdbc.url>jdbc:h2:${project.basedir}/databases/task-db</app.jdbc.url>
@@ -105,7 +105,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>copy-shared-resources</id>
@@ -137,7 +137,7 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.41.0</version>
+            <version>0.42.1</version>
             <executions>
               <execution>
                 <id>docker-build</id>
