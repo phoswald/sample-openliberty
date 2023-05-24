@@ -6,6 +6,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -25,6 +28,8 @@ import jakarta.ws.rs.core.Response;
 @Path("/pages/tasks")
 public class TaskController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
+
     @Inject
     private TaskRepository repository;
 
@@ -42,6 +47,7 @@ public class TaskController {
     public Response postTasksPage( //
             @FormParam("title") String title, //
             @FormParam("description") String description) {
+        logger.info("Received from with title=" + title + ", description=" + description);
         TaskEntity entity = new TaskEntity();
         entity.setNewTaskId();
         entity.setUserId("guest");
@@ -77,6 +83,7 @@ public class TaskController {
             @FormParam("title") String title, //
             @FormParam("description") String description, //
             @FormParam("done") String done) throws URISyntaxException {
+        logger.info("Received from with id=" + id + ", action=" + action + ", title=" + title + ", description=" + description + ", done=" + done);
         TaskEntity entity = repository.selectTaskById(id);
         if (Objects.equals(action, "delete")) {
             repository.deleteTask(entity);
