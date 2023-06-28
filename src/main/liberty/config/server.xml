@@ -38,7 +38,7 @@
 
   <dataSource id="taskDS" jndiName="jdbc/taskDS">
     <jdbcDriver libraryRef="h2JdbcLib" />
-    <properties URL="${app.jdbc.url}" user="${app.jdbc.username}" password="${app.jdbc.username}"/>
+    <properties URL="${app.jdbc.url}" user="${app.jdbc.username}" password="${app.jdbc.password}"/>
   </dataSource>
 
   <mpMetrics authentication="false"/>
