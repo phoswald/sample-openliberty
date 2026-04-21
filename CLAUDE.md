@@ -24,7 +24,7 @@ There are no automated tests; `mvn clean verify` compiles and packages the WAR.
 
 ## Architecture
 
-Jakarta EE 10 / MicroProfile 6.0 web application running on OpenLiberty (Java 17).
+Jakarta EE 10 / MicroProfile 6.0 web application running on OpenLiberty (Java 25).
 
 **Two functional modules**, each with a REST resource and an HTML controller:
 - `com.github.phoswald.sample.sample` — demo endpoints (time, config, XML/JSON echo) at `/app/rest/sample/*`
@@ -40,5 +40,6 @@ Jakarta EE 10 / MicroProfile 6.0 web application running on OpenLiberty (Java 17
 - `src/main/liberty/config/server.xml` — Liberty features, HTTP ports (8080/8443), datasource, and Liberty variables mapping to env vars (`APP_JDBC_URL`, `APP_JDBC_USERNAME`, `APP_JDBC_PASSWORD`, `APP_SAMPLE_CONFIG`)
 - `src/main/resources/META-INF/persistence.xml` — JPA persistence unit `taskDS`
 - `pom.xml` `<bootstrapProperties>` — sets Liberty variables for local `mvn liberty:run`
+- `src/main/docker/Dockerfile` — multi-stage build: stage 1 installs Liberty features using the official `open-liberty` image; stage 2 uses `code.phoswald.ch/philip/jre-25:latest` (Alpine + Java 25) with Liberty copied in
 
 **MicroProfile endpoints:** `/health`, `/metrics`, `/openapi/`, `/openapi/ui/`
