@@ -10,7 +10,7 @@ Experiments with OpenLiberty and Docker, featuring:
 ## Run Standalone
 
 ~~~
-$ mvn clean verify
+$ mvn clean package
 $ export APP_SAMPLE_CONFIG=ValueFromShell
 $ mvn liberty:run
 ~~~
@@ -20,7 +20,7 @@ For additional configuration properties, see `<bootstrapProperties>` in `pom.xml
 ## Run with Docker
 
 ~~~
-$ mvn clean verify -P docker
+$ mvn clean package -P docker
 $ docker run -it --name sample-openliberty --rm \
   -p 8080:8080 \
   -p 8443:8443 \
